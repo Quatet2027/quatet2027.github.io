@@ -30,10 +30,12 @@ h1,h2{font-family:"Playfair Display",serif;line-height:1.08}h2{font-size:clamp(2
 .hero h1{font-size:clamp(36px,5.6vw,60px);margin:14px 0 8px;font-weight:700}.hero h1 em{color:var(--red)}
 .hero-sub{font-family:"Playfair Display",serif;font-style:italic;font-size:20px;color:var(--ink2);margin:4px 0 12px}
 .hero p.lead{color:var(--ink2);font-size:16.5px;max-width:56ch}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 16px;font-size:13px;color:var(--muted)}.stat b{display:block;font-family:"Playfair Display",serif;font-size:24px;color:var(--red);line-height:1.1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 0}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 8px 12px;font-size:13px;color:var(--muted);text-align:center;line-height:1.35}.stat b{display:block;font-family:"Playfair Display",serif;font-size:27px;color:var(--red);line-height:1.1;margin-bottom:3px}
+@media(max-width:480px){.stat{padding:11px 4px 9px;font-size:11.5px}.stat b{font-size:22px}}
 .hero-img{border-radius:180px 180px 18px 18px;overflow:hidden;border:6px solid #fff;box-shadow:0 18px 40px rgba(0,0,0,.14);margin:0}.hero-img img{width:100%;height:560px;object-fit:cover;object-position:center 30%}@media(max-width:860px){.hero-img img{height:420px}}
 .hero-caption{font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;letter-spacing:.03em}
-.feat{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.feat span{background:var(--goldsoft);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600}.feat span b{color:var(--red)}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.feat span{background:var(--goldsoft);border:1px solid var(--line);border-radius:999px;padding:9px 12px;font-size:13px;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;line-height:1.4}.feat span b{color:var(--red)}
+@media(max-width:640px){.feat{grid-template-columns:1fr}.feat span{padding:11px 14px;font-size:13.5px}}
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 /* why */
 .why{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:900px){.why{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.why{grid-template-columns:1fr}}
@@ -104,6 +106,33 @@ html{scroll-padding-top:72px}
 form{padding:18px}
 .tier{grid-template-columns:92px 1fr 46px;gap:10px}
 .count div{min-width:70px}
+.cta-row{display:grid;grid-template-columns:1fr;gap:10px}
+.cta-row .btn{width:100%}
+}
+/* motion — Remotion-like smooth reveals */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.22,.61,.36,1),transform .85s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv-img{opacity:0;transform:translateY(24px) scale(.985);transition:opacity .95s cubic-bezier(.22,.61,.36,1),transform .95s cubic-bezier(.22,.61,.36,1)}
+.rv-img.in{opacity:1;transform:translateY(0) scale(1)}
+@keyframes heroIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero .eyebrow,.hero h1,.hero .hero-sub,.hero p.lead,.hero .stats,.hero .feat,.hero .cta-row{animation:heroIn .9s cubic-bezier(.22,.61,.36,1) both}
+.hero h1{animation-delay:.08s}.hero .hero-sub{animation-delay:.16s}.hero p.lead{animation-delay:.24s}.hero .stats{animation-delay:.32s}.hero .feat{animation-delay:.42s}.hero .cta-row{animation-delay:.52s}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.07)}}
+.hero-img img{animation:heroZoom 16s ease-in-out infinite alternate}
+@keyframes heroImgIn{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.hero-img,.hero-caption{animation:heroImgIn 1.1s cubic-bezier(.22,.61,.36,1) .2s both}
+.grp-media img,.feature>img{transition:transform 1.4s cubic-bezier(.22,.61,.36,1)}
+.grp:hover .grp-media img,.feature:hover>img{transform:scale(1.035)}
+.btn{transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,background .35s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(140,29,24,.18)}
+.card,.wcard,.step,.pcard,.mcard{transition:transform .5s cubic-bezier(.22,.61,.36,1),box-shadow .5s ease}
+.card:hover,.wcard:hover,.step:hover,.pcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(90,60,20,.10)}
+@media (prefers-reduced-motion: reduce){
+.rv,.rv-img{opacity:1!important;transform:none!important;transition:none!important}
+.hero .eyebrow,.hero h1,.hero .hero-sub,.hero p.lead,.hero .stats,.hero .feat,.hero .cta-row,.hero-img,.hero-caption{animation:none!important}
+.hero-img img{animation:none!important}
+.grp:hover .grp-media img,.feature:hover>img,.btn:hover,.card:hover,.wcard:hover,.step:hover,.pcard:hover{transform:none!important}
+html{scroll-behavior:auto}
 }
 </style>
 </head>
@@ -297,7 +326,7 @@ form{padding:18px}
 <footer class="wrap">
 <div class="footer">
 <div><div class="brand">SON</div><p style="margin:6px 0 0"><strong>Đẹp ngoài, chất trong.</strong><br>Quà Tết doanh nghiệp tinh tuyển: bao bì thủ công độc bản, nông sản Việt thuần lành, khắc logo riêng cho từng hộp quà.</p></div>
-<div><h4>Liên hệ</h4><p style="margin:0">513 Bùi Minh Trực, Phường Bình Đông, TP. Hồ Chí Minh<br>Hỗ trợ 24/7 qua người tư vấn của bạn</p></div>
+<div><h4>Liên hệ</h4><p style="margin:0">Hỗ trợ 24/7 qua người tư vấn của bạn</p></div>
 <div><h4>Giá tham khảo</h4><p style="margin:0">550.000đ – 1.800.000đ<br><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Về đầu trang ↑</a></p></div>
 <div class="foot-note"><span>© 2027 SON. Bảo lưu mọi quyền.</span><span>Quà Tết tinh tuyển · Đinh Mùi 2027</span></div>
 </div>
@@ -331,6 +360,54 @@ form.addEventListener('submit',function(e){
   document.getElementById('doneBox').style.display='block';
   document.getElementById('doneBox').scrollIntoView({behavior:'smooth',block:'center'});
 });
+/* scroll reveals + count-up */
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var revealEls = document.querySelectorAll('.sec-head, .wcard, .feature, .grp-head, .card, .mcard, .pcard, .tiers, .step, .capstats, .formgrid > div, form, details, .closing, .pack > div, .cert');
+revealEls.forEach(function(el,i){
+  var isImg = el.classList.contains('grp-head') || el.classList.contains('feature');
+  el.classList.add(isImg ? 'rv-img' : 'rv');
+  el.style.transitionDelay = ((i % 4) * 70) + 'ms';
+});
+function showAll(){ revealEls.forEach(function(el){ el.classList.add('in'); el.style.transitionDelay='0ms'; }); }
+if(reduced || !('IntersectionObserver' in window)){ showAll(); }
+else{
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  },{threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+  revealEls.forEach(function(el){ io.observe(el); });
+}
+/* stat count-up */
+var statNums = document.querySelectorAll('.stat b');
+function countUp(el){
+  var m = el.textContent.trim().match(/^(\d+)(.*)$/);
+  if(!m){ return; }
+  var end = parseInt(m[1],10), suf = m[2] || '';
+  if(reduced){ el.textContent = end + suf; return; }
+  var dur = 1300, t0 = null;
+  function step(ts){
+    if(!t0) t0 = ts;
+    var p = Math.min((ts - t0) / dur, 1);
+    var eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(end * eased) + suf;
+    if(p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+var statsBox = document.querySelector('.stats');
+if(statsBox){
+  if(reduced || !('IntersectionObserver' in window)){ statNums.forEach(countUp); }
+  else{
+    var counted = false;
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting && !counted){ counted = true; statNums.forEach(countUp); io2.disconnect(); }
+      });
+    },{threshold:0.35});
+    io2.observe(statsBox);
+  }
+}
 document.getElementById('copyBtn').addEventListener('click',function(){
   var t=document.getElementById('msgText').textContent;
   function done(){document.getElementById('copyNote').textContent='Đã sao chép — dán vào tin nhắn gửi người tư vấn của bạn.';}
